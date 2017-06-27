@@ -2,6 +2,7 @@ package com.example.logonrm.apprestaula09;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerViewLinhas = (RecyclerView) findViewById(R.id.rvLinhas);
-        // elements are laid out.
+        recyclerViewLinhas.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mLayoutManager = new LinearLayoutManager(this);
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
