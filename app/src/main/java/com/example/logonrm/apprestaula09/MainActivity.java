@@ -6,8 +6,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.logonrm.apprestaula09.adapter.LinhaAdapter;
+import com.example.logonrm.apprestaula09.adapter.OnClickItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
+        mlinhaAdapter = new LinhaAdapter(new ArrayList<Linha>(), new OnClickItemListener() {
+            @Override
+            public void onItemClick(Linha item) {
+                Toast.makeText(MainActivity.this,
+                        item.getCor(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerViewLinhas.setAdapter(mlinhaAdapter);
         loadList();
 
     }
@@ -59,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Linha>> call, Response<List<Linha>> response) {
 
                 if(response.isSuccessful()) {
-                    mlinhaAdapter = new LinhaAdapter(response.body());
-                    recyclerViewLinhas.setAdapter(mlinhaAdapter);
+                    mlinhaAdapter.refreshLinhaAdapter(response.body());
                 }
             }
 

@@ -18,10 +18,11 @@ import java.util.List;
 public class LinhaAdapter extends RecyclerView.Adapter<LinhaAdapter.AndroidViewHolder> {
 
     private List<Linha> linhas;
+    private OnClickItemListener listener;
 
-
-    public LinhaAdapter(List<Linha> linhas) {
+    public LinhaAdapter(List<Linha> linhas, OnClickItemListener listener) {
         this.linhas = linhas;
+        this.listener = listener;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class LinhaAdapter extends RecyclerView.Adapter<LinhaAdapter.AndroidViewH
     }
 
     @Override
-    public void onBindViewHolder(AndroidViewHolder holder, int position) {
+    public void onBindViewHolder(AndroidViewHolder holder, final int position) {
 
         holder.tvTitulo.setText(linhas.get(position).getNumero());
         holder.tvSubTitulo.setText(linhas.get(position).getCor());
@@ -45,6 +46,13 @@ public class LinhaAdapter extends RecyclerView.Adapter<LinhaAdapter.AndroidViewH
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(holder.ivLogo);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(linhas.get(position));
+            }
+        });
     }
 
     @Override
